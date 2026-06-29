@@ -1,0 +1,17 @@
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #2c1a00;
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  background: transparent;
+}
+.token.keyword   { color: #9a5c00; }
+.token.string    { color: #4a7a20; }
+.token.number    { color: #c06000; }
+.token.comment   { color: #b8a060; font-style: italic; }
+.token.function  { color: #5c5c00; }
+.token.operator  { color: #5c4a00; }
+.token.punctuation { color: #9a8040; }
+.token.class-name { color: #7a4000; }
+.token.builtin   { color: #9a5c00; }
