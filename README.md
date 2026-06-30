@@ -1,50 +1,147 @@
 # CoderX
 
-> An AI coding assistant for generating, explaining, and debugging code.
+<p align="center">
+  <h3 align="center">An AI coding assistant that generates, debugs, optimizes, and explains code through natural conversation.</h3>
+</p>
 
-**Live demo:** [coderx.vercel.app](https://coderx.vercel.app)
+<p align="center">
+  <a href="https://coderx-seven.vercel.app/">
+    <img src="https://img.shields.io/badge/TRY%20LIVE%20DEMO-Launch%20CoderX-f0d840?style=for-the-badge&logo=vercel&logoColor=black" alt="Live Demo"/>
+  </a>
+  &nbsp;
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License"/>
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
+  <img src="https://img.shields.io/badge/Node.js-18-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js"/>
+  <img src="https://img.shields.io/badge/LLaMA_3.3_70B-Groq-F55036?style=for-the-badge&logo=meta&logoColor=white" alt="LLaMA"/>
+  <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB"/>
+  <img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase"/>
+</p>
 
 ---
 
-## What it does
+## About CoderX
 
-CoderX provides an intelligent chat interface tailored for software development tasks. It helps developers write, review, and troubleshoot code through conversational prompts. The system integrates file upload capabilities to extract context from codebase files and documents.
+CoderX is a full-stack SaaS coding assistant built for developers who want fast, accurate AI help without leaving their workflow. It supports code generation, debugging, optimization, documentation, and code review — all through a chat interface. Guest users get 3 real AI responses before being prompted to sign up. Authenticated users get 15 messages per 5-hour window with full chat history.
+
+---
+
+## 📸 Screenshots
+
+> Screenshots from the platform.
+
+### Landing Page
+<p align="center">
+<img src="./images/Landing Page.png" width="95%" alt="Landing Page"/>
+</p>
+
+### Chat Interface
+<p align="center">
+<img src="./images/homepage.png" width="95%" alt="Chat Interface"/>
+</p>
+
+### How chat would look like
+<p align="center">
+<img src="./images/Chatexample.png" width="95%" alt="Chat example"/>
+</p>
+
+---
 
 ## Features
 
-Generate boilerplate and feature implementations in multiple programming languages.
-Identify errors and suggest fixes for broken code.
-Suggest performance optimizations for provided code snippets.
-Generate inline documentation and docstrings for functions and classes.
-Perform structural reviews to improve code readability and maintainability.
-Extract text from uploaded documents and code files to provide relevant context.
-Allow non-authenticated users to interact with the AI assistant through a guest mode.
-Persist conversation history and organize it by session.
-Enforce usage limits per user to manage API resource consumption.
+- Code generation — produces clean, commented code from natural language prompts across multiple languages
+- Debugging — identifies syntax and logical errors, explains the root cause, and suggests fixes
+- Optimization — improves time complexity, memory usage, and applies industry best practices
+- Documentation — generates inline comments, function descriptions, and README content
+- Code review — detects code smells, naming issues, and refactoring opportunities
+- File upload with RAG — users can attach code files, PDFs, and text documents; content is extracted and injected into the model context
+- Guest mode — unauthenticated users get 3 real AI responses (LLaMA 3.3 70B) before sign-up is required
+- Chat history — each conversation is stored per user with auto-generated titles and sidebar navigation
+- Rate limiting — 15 messages per 5-hour window per user, tracked server-side in PostgreSQL
+- Security pipeline — prompt injection filtering and PII scrubbing run on every message before it reaches the model
 
-## Tech stack
+---
 
-| Category | Frontend | Backend |
-| --- | --- | --- |
-| Language/Runtime | TypeScript / Node.js | JavaScript / Node.js |
-| Framework | React (Vite), TailwindCSS | Express.js |
-| AI model | - | LLaMA 3.3 70B via Groq |
-| Inference provider | - | Groq |
-| Primary database | - | MongoDB Atlas |
-| Document store | - | Supabase (PostgreSQL) |
-| Auth | Zustand (State) | JWT RS256 with Rotation |
-| File handling | - | Multer (In-memory storage) |
-| Hosting | Vercel | Render / Heroku |
+## Tech Stack
 
-## Architecture
+### Frontend
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-State-orange?style=for-the-badge)
+![React Router](https://img.shields.io/badge/React_Router-6-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)
+![Prism.js](https://img.shields.io/badge/Prism.js-Syntax-a8b9cc?style=for-the-badge)
 
-The application uses a multi-tenant authentication system relying on JWT RS256 signatures with secure refresh token rotation. Rate limiting is enforced via a PostgreSQL table on Supabase to track usage windows. The AI pipeline runs user inputs through a prompt injection guard and a PII scrubber before sending requests to LLaMA 3.3 70B via Groq. Responses are then parsed by an output validator and assigned a confidence score, while chat messages remain strictly isolated using unique conversation identifiers.
+### Backend
+![Node.js](https://img.shields.io/badge/Node.js-18-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5-000000?style=for-the-badge&logo=express&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-RS256-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![bcrypt](https://img.shields.io/badge/bcrypt-cost_12-333333?style=for-the-badge)
+![Multer](https://img.shields.io/badge/Multer-File_Handling-blueviolet?style=for-the-badge)
+
+### AI
+![LLaMA](https://img.shields.io/badge/LLaMA_3.3_70B-Meta-0467DF?style=for-the-badge&logo=meta&logoColor=white)
+![Groq](https://img.shields.io/badge/Inference-Groq-F55036?style=for-the-badge)
+
+### Database
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+
+### Cloud
+![Vercel](https://img.shields.io/badge/Vercel-Frontend-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Render](https://img.shields.io/badge/Render-Backend-46E3B7?style=for-the-badge&logo=render&logoColor=black)
+
+---
+
+## 🏗️ Architecture
+
+```text
+[Browser]
+   │
+   └──► [Vercel — React + Vite]
+              │
+              └──► [Render — Express API]
+                         ├──► [Supabase — PostgreSQL]
+                         │      users · refresh_tokens · rate_limits
+                         ├──► [MongoDB Atlas]
+                         │      chats · messages
+                         └──► [Groq API — LLaMA 3.3 70B]
+```
+
+---
 
 ## Security
 
-The prompt injection filter checks incoming queries to block malicious overrides before execution. A PII scrubber detects and redacts emails, phone numbers, and credit card numbers from user messages to prevent sensitive data from reaching the language model. Authentication relies on HTTP-only refresh token cookies to mitigate cross-site scripting attacks. Refresh token rotation implements theft detection by invalidating the entire token family if a reused token is detected. Row-level isolation is enforced at the application layer to ensure users can only access their own conversation data.
+Every user message passes through a four-stage pipeline before reaching the model:
 
-## Getting started
+```text
+User message
+   │
+   ├──► Prompt injection filter (regex — blocks system prompt override attempts)
+   ├──► PII scrubber (strips emails, phone numbers, card numbers)
+   ├──► LLaMA 3.3 70B  (temperature 0.2, JSON mode enforced)
+   └──► Output validator (schema check + confidence scoring)
+```
+
+Additional security measures:
+
+- JWT access tokens signed with RS256, 15-minute TTL, stored in memory
+- Refresh tokens stored in HTTP-only SameSite=Strict cookies with rotation on every use
+- Token theft detection — reuse of a rotated token invalidates the entire token family
+- Passwords hashed with bcrypt at cost factor 12
+- Rate limiting enforced server-side in PostgreSQL — client cannot bypass it
+- Guest rate limiting enforced per IP in-memory — 3 requests per hour
+- CORS restricted to explicit origin, credentials mode enabled
+- File uploads processed in memory — no files written to disk or stored externally
+- Multer fileFilter blocks unsupported extensions before processing begins
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
@@ -57,106 +154,122 @@ The prompt injection filter checks incoming queries to block malicious overrides
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/mohdarsh786/CoderX.git
-   cd CoderX
+   git clone https://github.com/yourusername/coderx.git
+   cd coderx
    ```
 
-2. Install backend dependencies:
+2. Install server dependencies:
    ```bash
    cd server
    npm install
    ```
 
-3. Install frontend dependencies:
+3. Install client dependencies:
    ```bash
    cd ../client
    npm install
    ```
 
-4. Copy the environment templates and configure variables:
+4. Set up environment variables:
    ```bash
-   cp server/.env.example server/.env
-   cp client/.env.example client/.env
+   cp .env.example server/.env
+   # Fill in the values listed in the Environment Variables section below
    ```
 
-5. Start both development servers in separate terminal instances:
+5. Set up the Supabase tables — refer to the private schema documentation.
+
+6. Run both servers:
    ```bash
-   # Terminal 1 (Server)
+   # Terminal 1
    cd server
    npm run dev
 
-   # Terminal 2 (Client)
+   # Terminal 2
    cd client
    npm run dev
    ```
 
-### Environment variables
+---
 
-#### Server `.env`
+## Environment Variables
+
+### Server (`server/.env`)
+
 | Variable | Description |
-| --- | --- |
-| PORT | Port number for the Express server |
-| NODE_ENV | Set to production to enable secure cookies |
-| CLIENT_URL | URL of the frontend application |
-| JWT_ACCESS_SECRET | Secret key for signing access tokens |
-| JWT_REFRESH_SECRET | Secret key for signing refresh tokens |
-| ACCESS_TOKEN_TTL | Time to live for access tokens (e.g., 15m) |
-| REFRESH_TOKEN_TTL | Time to live for refresh tokens (e.g., 7d) |
-| SUPABASE_URL | API URL for the Supabase project |
-| SUPABASE_SERVICE_KEY | Service role key for backend operations |
-| MONGO_URI | Connection string for MongoDB Atlas |
-| GROQ_API_KEY | API key for Groq |
-| GROQ_MODEL | Inference model (e.g., llama-3.3-70b-versatile) |
-| SYSTEM_PROMPT | Override for default AI assistant behavior |
-| RESPONSE_SCHEMA | Override for JSON response structure |
-| VITE_API_URL | API URL fallback (optional on server) |
+|----------|-------------|
+| `PORT` | Port the Express server runs on (default: 5000) |
+| `NODE_ENV` | `development` or `production` |
+| `CLIENT_URL` | Frontend URL for CORS (e.g. `http://localhost:5173`) |
+| `JWT_ACCESS_SECRET` | 64-character random string for signing access tokens |
+| `JWT_REFRESH_SECRET` | 64-character random string for signing refresh tokens |
+| `ACCESS_TOKEN_TTL` | Access token expiry (default: `15m`) |
+| `REFRESH_TOKEN_TTL` | Refresh token expiry (default: `7d`) |
+| `SUPABASE_URL` | Supabase project URL |
+| `SUPABASE_SERVICE_KEY` | Supabase service role key (not the anon key) |
+| `MONGO_URI` | MongoDB Atlas connection string |
+| `GROQ_API_KEY` | Groq API key from console.groq.com |
+| `GROQ_MODEL` | Model name — `llama-3.3-70b-versatile` |
 
-#### Client `.env`
+### Client (`client/.env`)
+
 | Variable | Description |
-| --- | --- |
-| VITE_API_URL | URL of the backend API server |
+|----------|-------------|
+| `VITE_API_URL` | Backend API URL (e.g. `http://localhost:5000`) |
 
-## API reference
+Generate JWT secrets with:
+```bash
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+```
 
-| Method | Endpoint | Auth required | Description |
-| --- | --- | --- | --- |
-| POST | `/api/auth/register` | No | Create a new user account |
-| POST | `/api/auth/login` | No | Authenticate user and issue tokens |
-| POST | `/api/auth/refresh` | No | Issue new access token using refresh cookie |
-| POST | `/api/auth/logout` | Yes | Invalidate user session and clear cookies |
-| POST | `/api/chats` | Yes | Initialize a new conversation |
-| GET | `/api/chats` | Yes | Retrieve all conversations for the user |
-| GET | `/api/chats/:conversationId` | Yes | Retrieve messages for a specific conversation |
-| DELETE | `/api/chats/:conversationId` | Yes | Delete a specific conversation |
-| POST | `/api/ai/message` | Yes | Process an authenticated chat message |
-| POST | `/api/guest/message` | No | Process a chat message with guest rate limits |
-| POST | `/api/upload` | Yes | Parse an uploaded file for context injection |
-| GET | `/api/user/quota` | Yes | Retrieve the current usage and limits |
+---
 
-## Rate limiting
 
-Guest users are limited to 3 messages per IP address every hour, tracked entirely in memory. Authenticated users are allocated 15 messages per 5-hour window, tracked persistently in PostgreSQL via Supabase. When a user exceeds their limit, the API returns a 429 status code containing a `resetAt` timestamp indicating when the quota resets.
+## Rate Limiting
 
-## Project structure
+CoderX enforces two independent rate limiting tiers.
+
+Guest tier — 3 requests per IP per hour, tracked in memory. On the 4th request the server returns `429` with `{ signInRequired: true }`.
+
+Authenticated tier — 15 messages per 5-hour rolling window per user, tracked in PostgreSQL. On the 16th request within the window the server returns `429` with `{ resetAt: <ISO timestamp>, waitMs: <milliseconds> }`. The frontend displays a live countdown timer and disables the input until the window resets.
+
+---
+
+## Project Structure
 
 ```text
 CoderX/
-├── client/src/
-│   ├── components/    # Reusable React UI components
-│   ├── hooks/         # Custom React hooks
-│   ├── pages/         # Route level page components
-│   ├── services/      # API communication methods
-│   └── store/         # Zustand state management
-└── server/src/
-    ├── config/        # Environment and service configurations
-    ├── controllers/   # Route request handlers
-    ├── middleware/    # Auth and request interceptors
-    ├── models/        # Mongoose data schemas
-    ├── pipeline/      # AI request processing and validation
-    ├── routes/        # Express router definitions
-    └── services/      # Business logic and external API integrations
+├── client/                  # React + Vite frontend
+│   └── src/
+│       ├── components/
+│       │   ├── auth/        # Login and signup forms
+│       │   ├── chat/        # ChatWindow, MessageList, MessageInput, QuotaBar
+│       │   ├── landing/     # Landing page sections
+│       │   ├── layout/      # Sidebar
+│       │   └── ui/          # CodeBlock, Avatar, reusable elements
+│       ├── hooks/           # useAuth, useChat, useQuota, useGuest
+│       ├── pages/           # Landing, Chat, Login, Signup, NotFound
+│       ├── services/        # API call functions (auth, chat, upload)
+│       └── store/           # Zustand slices (auth state)
+│
+└── server/                  # Node.js + Express backend
+    └── src/
+        ├── config/          # Supabase client, MongoDB connection, Multer config
+        ├── controllers/     # Route handlers (auth, chat, ai, user)
+        ├── middleware/      # JWT auth, rate limiting, error handling
+        ├── models/          # MongoDB schemas (Chat, Message)
+        ├── pipeline/        # Prompt guard, PII scrub, Groq client, output validator
+        ├── routes/          # Express routers
+        └── services/        # Business logic (auth, token, chat, AI, rate limit)
 ```
 
-## License
+---
 
-MIT
+## Author
+
+Built by **Mohd. Arsh** — [![GitHub](https://img.shields.io/badge/GitHub-mohdarsh786-181717?style=flat&logo=github)](https://github.com/mohdarsh786)
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
