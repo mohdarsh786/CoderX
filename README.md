@@ -154,7 +154,7 @@ Additional security measures:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/coderx.git
+   git clone https://github.com/mohdarsh786/coderx.git
    cd coderx
    ```
 
@@ -207,7 +207,7 @@ Additional security measures:
 | `SUPABASE_URL` | Supabase project URL |
 | `SUPABASE_SERVICE_KEY` | Supabase service role key (not the anon key) |
 | `MONGO_URI` | MongoDB Atlas connection string |
-| `GROQ_API_KEY` | Groq API key from console.groq.com |
+| `GROQ_API_KEY` | from groq.com
 | `GROQ_MODEL` | Model name — `llama-3.3-70b-versatile` |
 
 ### Client (`client/.env`)
@@ -267,6 +267,8 @@ CoderX/
 ## Author
 
 Built by **Mohd. Arsh** — [![GitHub](https://img.shields.io/badge/GitHub-mohdarsh786-181717?style=flat&logo=github)](https://github.com/mohdarsh786)
+
+contact details: In profile
 
 ---
 
