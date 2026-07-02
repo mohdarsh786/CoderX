@@ -16,7 +16,6 @@ const buildFileContext = (fileData) => {
   }
   return ''
 }
-
 const processMessage = async (userMessage, conversationHistory = [], fileData = null) => {
   const injection = checkInjection(userMessage)
   if (injection.flagged) {

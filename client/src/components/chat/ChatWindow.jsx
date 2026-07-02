@@ -20,8 +20,8 @@ export default function ChatWindow({
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, guestMessages, sending, guestSending])
 
-  const handleSend = async (text) => {
-    if (isAuth) { await onSend(text); return }
+  const handleSend = async (text, fileData = null) => {
+    if (isAuth) { await onSend(text, fileData); return }
 
     const next = guestCount + 1
     setGuestCount(next)

@@ -32,7 +32,7 @@ export default function CodeBlock({ content }) {
       {content.explanation && (
         <p style={{ marginBottom: content.code ? '0.6rem' : 0, lineHeight: 1.6 }}>{content.explanation}</p>
       )}
-      {content.code && (
+      {content.code && content.code !== 'null' && (
         <div style={{ marginTop: '0.5rem' }}>
           <div style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -58,7 +58,7 @@ export default function CodeBlock({ content }) {
           </pre>
         </div>
       )}
-      {content.complexity && (
+      {content.complexity && content.complexity !== 'null' && (
         <p style={{ fontSize: 11, color: '#9a8040', marginTop: '0.4rem' }}>Complexity: {content.complexity}</p>
       )}
       {content.suggestions?.length > 0 && (
