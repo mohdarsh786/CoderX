@@ -97,7 +97,10 @@ export const useChat = () => {
       return { success: true, piiRedacted: result.piiRedacted }
     } catch (err) {
       const status = err.response?.status
+      const serverMessage = err.response?.data?.message
+
       if (status === 429) return { success: false, rateLimited: true, resetAt: err.response.data.resetAt }
+
       if (status === 400 && err.response?.data?.reason === 'prompt_injection') {
         setMessages(prev => [...prev, {
           _id: Date.now() + 2,
@@ -107,7 +110,18 @@ export const useChat = () => {
         }])
         return { success: false, flagged: true }
       }
-      setError('Failed to send message')
+
+      // Show any other error as an assistant message
+      setMessages(prev => [...prev, {
+        _id: Date.now() + 2,
+        role: 'assistant',
+        content: {
+          explanation: serverMessage || 'Something went wrong. Please try again.',
+          code: null,
+          confidence: 1,
+        },
+        createdAt: new Date().toISOString(),
+      }])
       return { success: false }
     } finally {
       setSending(false)

@@ -16,6 +16,10 @@ router.post('/message', authenticate, rateLimitAI, async (req, res) => {
       return res.status(400).json({ message: 'conversationId is required' });
     if (message.length > 4000)
       return res.status(400).json({ message: 'Message too long (max 4000 chars)' });
+    
+    if (fileData && fileData.content && fileData.content.length > 6000) {
+      return res.status(400).json({ message: 'File content too large. Please upload a smaller file or paste the relevant section directly.' })
+    }
 
     // Verify chat belongs to user
     const chat = await Chat.findOne({ conversationId, userId: req.user.userId });

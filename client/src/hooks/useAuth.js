@@ -2,7 +2,7 @@ import { useAuthStore } from '../store/authSlice'
 import { loginUser, registerUser, logoutUser, refreshToken } from '../services/auth.service'
 
 export const useAuth = () => {
-  const { user, accessToken, isAuth, setAuth, setAccessToken, logout } = useAuthStore()
+  const { user, accessToken, isAuth, isLoading, setAuth, setAccessToken, logout, setLoading } = useAuthStore()
 
   const login = async (email, password) => {
     const data = await loginUser(email, password)
@@ -22,15 +22,17 @@ export const useAuth = () => {
   }
 
   const tryRefresh = async () => {
+    setLoading(true)
     try {
       const data = await refreshToken()
       setAuth(data.user, data.accessToken)
       return true
-    } catch {
-      logout()
+    } catch (err) {
+      if (err.response?.status === 401) logout()
+      else setLoading(false) // network error — not a real logout
       return false
     }
   }
 
-  return { user, accessToken, isAuth, login, register, signout, tryRefresh }
+  return { user, accessToken, isAuth, isLoading, login, register, signout, tryRefresh }
 }

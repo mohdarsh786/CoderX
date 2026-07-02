@@ -1,5 +1,5 @@
 const VALID_TYPES = ['code_generation','explanation','debug','optimization','documentation','review','general','informational','greeting'];
-const VALID_LANGS = ['python','javascript','typescript','java','cpp','sql','other',null,'null','none','N/A'];
+const VALID_LANGS = ['python','javascript','typescript','java','cpp','c','sql','other',null,'null','none','N/A'];
 
 const validate = (raw) => {
   let parsed;

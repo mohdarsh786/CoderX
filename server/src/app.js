@@ -12,7 +12,7 @@ app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true,
 }))
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json({ limit: '50kb' }))
 app.use(morgan('dev'));
 
 app.get('/health', (req, res) => res.json({ status: 'ok' }));

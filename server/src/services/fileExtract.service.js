@@ -17,7 +17,7 @@ const extractText = async (file) => {
     return {
       type: 'document',
       filename: file.originalname,
-      content: data.text.slice(0, 8000),
+      content: data.text.slice(0, 5000),
     }
   }
 
@@ -26,7 +26,7 @@ const extractText = async (file) => {
       type: 'code',
       filename: file.originalname,
       language: ext,
-      content: buffer.toString('utf-8').slice(0, 8000),
+      content: buffer.toString('utf-8').slice(0, 5000),
     }
   }
 
@@ -34,7 +34,7 @@ const extractText = async (file) => {
     return {
       type: 'document',
       filename: file.originalname,
-      content: buffer.toString('utf-8').slice(0, 8000),
+      content: buffer.toString('utf-8').slice(0, 5000),
     }
   }
 
