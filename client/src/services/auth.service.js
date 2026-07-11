@@ -22,9 +22,16 @@ export const registerUser = async (email, password, fullName, guestMessages = []
   return data
 }
 
+let refreshPromise = null
+
 export const refreshToken = async () => {
-  const { data } = await api.post('/api/auth/refresh')
-  return data
+  if (refreshPromise) return refreshPromise
+  
+  refreshPromise = api.post('/api/auth/refresh')
+    .then(res => res.data)
+    .finally(() => { refreshPromise = null })
+    
+  return refreshPromise
 }
 
 export const logoutUser = async () => {
