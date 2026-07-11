@@ -83,23 +83,7 @@ export default function Chat() {
     await chat.startNewChat()
   }
 
-  // Wait for auth check to complete before rendering
-  // This prevents guest mode flashing for authenticated users
-  if (isLoading) return (
-    <div style={{
-      minHeight: '100vh', background: '#fdfcf5',
-      display: 'flex', alignItems: 'center', justifyContent: 'center'
-    }}>
-      <div style={{
-        width: 18, height: 18,
-        border: '2px solid #e0d080',
-        borderTopColor: '#d4b800',
-        borderRadius: '50%',
-        animation: 'spin 0.7s linear infinite'
-      }} />
-      <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
-    </div>
-  )
+
 
   return (
     <div className="flex h-screen overflow-hidden" style={{ background: '#fdfcf5' }}>
