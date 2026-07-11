@@ -20,7 +20,7 @@ api.interceptors.response.use(
   res => res,
   async err => {
     const original = err.config
-    const isAuthRoute = original.url?.includes('/auth/login') || original.url?.includes('/auth/register') || original.url?.includes('/auth/refresh')
+    const isAuthRoute = original.url?.includes('/api/auth/')
     if (err.response?.status === 401 && !original._retry && !isAuthRoute) {
       if (refreshing) {
         return new Promise((resolve, reject) => {

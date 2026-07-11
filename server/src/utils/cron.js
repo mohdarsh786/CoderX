@@ -1,5 +1,6 @@
 const cron = require('node-cron');
 const supabase = require('../config/db.supabase');
+const { cleanupExpiredOtps } = require('../services/otp.service');
 
 const startCron = () => {
   // Runs every 5 minutes — deletes rate_limit rows where window expired
@@ -12,6 +13,13 @@ const startCron = () => {
     if (error) console.error('Cron cleanup error:', error.message);
   });
   console.log('Cron: rate limit cleanup scheduled');
+
+  // Runs every 10 minutes — deletes expired/used OTP codes
+  cron.schedule('*/10 * * * *', async () => {
+    await cleanupExpiredOtps().catch(err => console.error('OTP cleanup error:', err.message));
+  });
+  console.log('Cron: OTP cleanup scheduled');
 };
 
 module.exports = { startCron };
+

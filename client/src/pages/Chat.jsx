@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { useChat } from '../hooks/useChat'
 import { useQuota } from '../hooks/useQuota'
@@ -17,6 +17,18 @@ export default function Chat() {
   const [showModal, setShowModal] = useState(false)
   const [showSignoutConfirm, setShowSignoutConfirm] = useState(false)
   const [inputVisible, setInputVisible] = useState(true)
+
+  const wasAuth = useRef(false)
+
+  useEffect(() => {
+    if (isAuth) {
+      wasAuth.current = true
+    }
+    // If user was authenticated but isAuth became false — forced logout
+    if (!isAuth && !isLoading && wasAuth.current) {
+      navigate('/login')
+    }
+  }, [isAuth, isLoading])
 
   useEffect(() => {
     if (isAuth) {
@@ -53,22 +65,12 @@ export default function Chat() {
 
   const handleSend = async (text, fileData = null) => {
     if (!isAuth) return
-
-    // Auto-create chat if none active
-    let current = chat.activeChat
-    if (!current) {
-      current = await chat.startNewChat()
-      if (!current) return
-    }
-
     const result = await chat.send(text, fileData)
     if (!result) return
-
     if (result.rateLimited) {
       quota.refresh()
       return
     }
-
     if (result.success) {
       quota.decrement()
       if (result.piiRedacted) {

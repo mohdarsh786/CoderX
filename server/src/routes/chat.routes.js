@@ -3,6 +3,19 @@ const authenticate = require('../middleware/authenticate');
 const {
   createChat, getUserChats, getChatMessages, deleteChat,
 } = require('../services/chat.service');
+const { migrateGuestMessages } = require('../services/guestMigration.service');
+
+// Migrate guest messages
+router.post('/migrate', authenticate, async (req, res) => {
+  try {
+    const { guestMessages = [] } = req.body
+    if (guestMessages.length === 0) return res.json({ migrated: false })
+    const chat = await migrateGuestMessages(req.user.userId, guestMessages)
+    res.json({ migrated: true, conversationId: chat?.conversationId })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
 
 // Create new chat
 router.post('/', authenticate, async (req, res) => {

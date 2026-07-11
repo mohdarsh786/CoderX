@@ -63,6 +63,7 @@ CoderX is a full-stack SaaS coding assistant built for developers who want fast,
 - Chat history — each conversation is stored per user with auto-generated titles and sidebar navigation
 - Rate limiting — 15 messages per 5-hour window per user, tracked server-side in PostgreSQL
 - Security pipeline — prompt injection filtering and PII scrubbing run on every message before it reaches the model
+- Secure OTP-based authentication — includes email validation and password reset flow
 
 ---
 

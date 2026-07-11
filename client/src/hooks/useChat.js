@@ -21,12 +21,12 @@ export const useChat = () => {
     }
   }, [])
 
-  const startNewChat = useCallback(async () => {
+  const startNewChat = useCallback(async (pendingMessage = null) => {
     try {
       const chat = await createChat()
       setChats(prev => [chat, ...prev])
       setActiveChat(chat)
-      setMessages([])
+      setMessages(pendingMessage ? [pendingMessage] : [])
       return chat
     } catch (err) {
       setError('Failed to create chat')
@@ -55,15 +55,22 @@ export const useChat = () => {
   }, [])
 
   const send = useCallback(async (text, fileData = null) => {
-    if (!activeChat) return
-
     const userMsg = {
       _id: Date.now(),
       role: 'user',
       content: fileData ? `${text} [attached: ${fileData.filename}]` : text,
       createdAt: new Date().toISOString(),
     }
-    setMessages(prev => [...prev, userMsg])
+
+    let current = activeChat
+    if (!current) {
+      // Pass the pending message so it shows immediately
+      current = await startNewChat(userMsg)
+      if (!current) return
+    } else {
+      setMessages(prev => [...prev, userMsg])
+    }
+
     setSending(true)
 
     try {
@@ -74,7 +81,7 @@ export const useChat = () => {
           : m.content,
       }))
 
-      const result = await sendMessage(text, activeChat.conversationId, history, fileData)
+      const result = await sendMessage(text, current.conversationId, history, fileData)
 
       const assistantMsg = {
         _id: Date.now() + 1,
@@ -85,14 +92,10 @@ export const useChat = () => {
       setMessages(prev => [...prev, assistantMsg])
 
       setChats(prev => prev.map(c =>
-        c.conversationId === activeChat.conversationId
+        c.conversationId === current.conversationId
           ? { ...c, title: result.response?.title || c.title }
           : c
       ))
-
-      if (messages.length === 0) {
-        setTimeout(() => loadChats(), 3000)
-      }
 
       return { success: true, piiRedacted: result.piiRedacted }
     } catch (err) {
@@ -111,22 +114,17 @@ export const useChat = () => {
         return { success: false, flagged: true }
       }
 
-      // Show any other error as an assistant message
       setMessages(prev => [...prev, {
         _id: Date.now() + 2,
         role: 'assistant',
-        content: {
-          explanation: serverMessage || 'Something went wrong. Please try again.',
-          code: null,
-          confidence: 1,
-        },
+        content: { explanation: serverMessage || 'Something went wrong. Please try again.', code: null, confidence: 1 },
         createdAt: new Date().toISOString(),
       }])
       return { success: false }
     } finally {
       setSending(false)
     }
-  }, [activeChat, messages])
+  }, [activeChat, messages, startNewChat])
 
   const removeChat = useCallback(async (conversationId) => {
     try {

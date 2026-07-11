@@ -1,13 +1,23 @@
 import { useAuthStore } from '../store/authSlice'
-import { loginUser, registerUser, logoutUser, refreshToken } from '../services/auth.service'
+import { loginUser, registerUser, logoutUser, refreshToken, verifyOtpCode, resendOtpCode } from '../services/auth.service'
 
 export const useAuth = () => {
   const { user, accessToken, isAuth, isLoading, setAuth, setAccessToken, logout, setLoading } = useAuthStore()
 
   const login = async (email, password) => {
     const data = await loginUser(email, password)
+    // Do NOT call setAuth here — tokens not issued yet
+    return data // { otpRequired: true, email }
+  }
+
+  const verifyOtp = async (email, otp) => {
+    const data = await verifyOtpCode(email, otp)
     setAuth(data.user, data.accessToken)
     return data
+  }
+
+  const resendOtp = async (email) => {
+    return resendOtpCode(email)
   }
 
   const register = async (email, password, fullName, guestMessages = []) => {
@@ -28,11 +38,14 @@ export const useAuth = () => {
       setAuth(data.user, data.accessToken)
       return true
     } catch (err) {
-      if (err.response?.status === 401) logout()
-      else setLoading(false) // network error — not a real logout
+      if (err.response?.status === 401) {
+        logout()
+      } else {
+        setLoading(false)
+      }
       return false
     }
   }
 
-  return { user, accessToken, isAuth, isLoading, login, register, signout, tryRefresh }
+  return { user, accessToken, isAuth, isLoading, login, register, signout, tryRefresh, verifyOtp, resendOtp }
 }

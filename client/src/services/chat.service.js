@@ -42,3 +42,9 @@ export const sendGuestMessage = async (message, history = []) => {
   const { data } = await api.post('/api/guest/message', { message, history })
   return data
 }
+
+export const migrateGuestMessagesManually = async (guestMessages) => {
+  if (!guestMessages || guestMessages.length === 0) return
+  const { data } = await api.post('/api/chats/migrate', { guestMessages })
+  return data
+}

@@ -5,6 +5,7 @@ import Landing from './pages/Landing'
 import Chat from './pages/Chat'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import ForgotPassword from './pages/ForgotPassword'
 import NotFound from './pages/NotFound'
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/login" element={isAuth ? <Navigate to="/chat" replace /> : <Login />} />
         <Route path="/signup" element={isAuth ? <Navigate to="/chat" replace /> : <Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
