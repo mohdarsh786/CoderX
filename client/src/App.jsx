@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
 import Landing from './pages/Landing'
@@ -10,15 +10,19 @@ import NotFound from './pages/NotFound'
 
 export default function App() {
   const { isAuth, tryRefresh } = useAuth()
+  const didInit = useRef(false)
 
   useEffect(() => {
-    tryRefresh()
+    if (!didInit.current) {
+      didInit.current = true
+      tryRefresh()
+    }
   }, [])
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={isAuth ? <Navigate to="/chat" replace /> : <Landing />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/login" element={isAuth ? <Navigate to="/chat" replace /> : <Login />} />
         <Route path="/signup" element={isAuth ? <Navigate to="/chat" replace /> : <Signup />} />
