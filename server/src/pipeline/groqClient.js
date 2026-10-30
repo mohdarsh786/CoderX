@@ -7,7 +7,7 @@ const RESPONSE_SCHEMA = process.env.RESPONSE_SCHEMA || "{}";
 
 const chat = async (messages) => {
   const completion = await groq.chat.completions.create({
-    model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+    model: process.env.GROQ_MODEL || 'qwen/qwen3.8-27b',
     temperature: 0.2,
     top_p: 0.9,
     max_tokens: 2048,

@@ -85,8 +85,9 @@ CoderX is a full-stack SaaS coding assistant built for developers who want fast,
 ![Multer](https://img.shields.io/badge/Multer-File_Handling-blueviolet?style=for-the-badge)
 
 ### AI
-![LLaMA](https://img.shields.io/badge/LLaMA_3.3_70B-Meta-0467DF?style=for-the-badge&logo=meta&logoColor=white)
+![Qwen](https://img.shields.io/badge/Qwen_3.8_27B-Alibaba-615EFF?style=for-the-badge)
 ![Groq](https://img.shields.io/badge/Inference-Groq-F55036?style=for-the-badge)
+
 
 ### Database
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
@@ -110,7 +111,7 @@ CoderX is a full-stack SaaS coding assistant built for developers who want fast,
                          │      users · refresh_tokens · rate_limits
                          ├──► [MongoDB Atlas]
                          │      chats · messages
-                         └──► [Groq API — LLaMA 3.3 70B]
+                         └──► [Groq API — qwen3.8-27b]
 ```
 
 ---
@@ -124,7 +125,7 @@ User message
    │
    ├──► Prompt injection filter (regex — blocks system prompt override attempts)
    ├──► PII scrubber (strips emails, phone numbers, card numbers)
-   ├──► LLaMA 3.3 70B  (temperature 0.2, JSON mode enforced)
+   ├──► qwen/qwen3.8-27b (temperature 0.2, JSON mode enforced)
    └──► Output validator (schema check + confidence scoring)
 ```
 

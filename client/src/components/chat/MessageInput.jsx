@@ -140,7 +140,7 @@ export default function MessageInput({ onSend, disabled, sending, isAuth }) {
             <span style={{
               fontSize: 11, color: '#b8a060', padding: '0.2rem 0.5rem',
               borderRadius: 5, border: '0.5px solid #e8d880', background: '#fef9e0'
-            }}>LLaMA 3.3 70B</span>
+            }}> Qwen3.8-27b</span>
             <button
               onClick={submit}
               disabled={!text.trim() || disabled || sending || uploading}
